@@ -159,7 +159,7 @@ export class UIPaneLayers {
 			new ButtonComponent(this.navEl)
 				.setIcon('lucide-arrow-left-circle')
 				.setClass('clickable-icon')
-				.setTooltip(`Back to ${this.layers[this.layers.length - 1].title}`)
+				.setTooltip(`返回 ${this.layers[this.layers.length - 1].title}`)
 				.onClick(() => this.navInstance.close());
 		}
 

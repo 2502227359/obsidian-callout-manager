@@ -6,6 +6,8 @@ import { CalloutSettings } from './callout-settings';
  * The Callout Manager plugin settings.
  */
 export default interface Settings {
+	defaultCallout: CalloutID;
+
 	callouts: {
 		custom: string[];
 		settings: Record<CalloutID, CalloutSettings>;
@@ -26,6 +28,7 @@ export default interface Settings {
  */
 export function defaultSettings(): Settings {
 	return {
+		defaultCallout: 'danger',
 		callouts: {
 			custom: [],
 			settings: {},

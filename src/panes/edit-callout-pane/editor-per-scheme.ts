@@ -49,20 +49,20 @@ export default class PerSchemeAppearanceEditor extends AppearanceEditor<PerSchem
 		const { colorDark, colorLight, otherChanges } = this.appearance;
 
 		new CalloutColorSetting(containerEl, callout)
-			.setName('Dark Color')
-			.setDesc('Change the color of the callout for the dark color scheme.')
+			.setName('深色模式颜色')
+			.setDesc('修改这个 Callout 在深色模式下的颜色。')
 			.setColorString(colorDark)
 			.onChange((color) => this.setAppearanceOrChangeToUnified({ ...appearance, colorDark: color }));
 
 		new CalloutColorSetting(containerEl, callout)
-			.setName(`Light Color`)
-			.setDesc(`Change the color of the callout for the light color scheme.`)
+			.setName(`浅色模式颜色`)
+			.setDesc(`修改这个 Callout 在浅色模式下的颜色。`)
 			.setColorString(colorLight)
 			.onChange((color) => this.setAppearanceOrChangeToUnified({ ...appearance, colorLight: color }));
 
 		new CalloutIconSetting(containerEl, callout, plugin, () => nav)
-			.setName('Icon')
-			.setDesc('Change the callout icon.')
+			.setName('图标')
+			.setDesc('修改这个 Callout 的图标。')
 			.setIcon(otherChanges.icon)
 			.onChange((icon) =>
 				this.setAppearanceOrChangeToUnified({ ...appearance, otherChanges: { ...otherChanges, icon } }),

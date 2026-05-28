@@ -48,12 +48,12 @@ export class MiscEditor {
 
 		const validity = new ValiditySet(ValiditySet.AllValid);
 		const desc = document.createDocumentFragment();
-		desc.createEl('p', { text: 'Change the name of this callout.' });
-		desc.createEl('p', { text: 'This will not update any references in your notes!', cls: 'mod-warning' });
+		desc.createEl('p', { text: '修改这个 Callout 的名称。' });
+		desc.createEl('p', { text: '不会自动更新笔记中已有的引用。', cls: 'mod-warning' });
 
 		let newIdComponent!: TextComponent;
 		return new Setting(containerEl)
-			.setName(`Rename`)
+			.setName(`重命名`)
 			.setDesc(desc)
 			.addText((cmp) => {
 				newIdComponent = cmp;
@@ -73,7 +73,7 @@ export class MiscEditor {
 			.addButton((btn) => {
 				validity.onChangeUpdateDisabled(btn);
 				btn.setIcon('lucide-clipboard-signature')
-					.setTooltip('Rename')
+					.setTooltip('重命名')
 					.then(({ buttonEl }) => buttonEl.classList.add('clickable-icon', 'mod-warning'))
 					.onClick(() => {
 						if (!validity.valid) return;

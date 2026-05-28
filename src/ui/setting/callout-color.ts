@@ -97,7 +97,7 @@ export class CalloutColorSetting extends Setting {
 			this.dropdownComponent.setValue('');
 		}
 
-		this.resetComponent.setDisabled(isDefault).setTooltip(isDefault ? '' : 'Reset Color');
+		this.resetComponent.setDisabled(isDefault).setTooltip(isDefault ? '' : '重置颜色');
 
 		return this;
 	}

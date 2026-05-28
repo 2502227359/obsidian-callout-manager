@@ -1,10 +1,9 @@
 {
-	"id": "callout-manager-dev-reloader",
+	"id": "callout-manager-local-dev-reloader",
 	"version": "0.0.0",
-	"description": "Automatically reload the callout-manager plugin when it changes.",
-	"author": "eth-p",
-	"authorUrl": "https://github.com/eth-p",
-	"name": "Callout Manager (Dev Reloader)",
+	"description": "Automatically reload the local callout manager plugin when it changes.",
+	"author": "Local",
+	"name": "Callout Manager Local (Dev Reloader)",
 	"minAppVersion": "1.0.0",
 	"isDesktopOnly": true
 }

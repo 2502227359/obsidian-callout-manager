@@ -1,47 +1,47 @@
-# Version 1.1.1
+# 版本 1.1.1
 
-> [!new] Export Callouts as CSS  
-> There's now a button to copy your callout changes.
+> [!new] 导出 Callout CSS
+> 现在可以用按钮复制你的 Callout 样式修改。
 
-> [!fix] Callout Previews  
-> Previews are back!
+> [!fix] Callout 预览
+> 预览功能已恢复。
 >
-> Thank you, [**@alythobani**](https://github.com/alythobani)!
+> 感谢 [**@alythobani**](https://github.com/alythobani)！
 
-> [!fix] Settings Pane (Mobile)  
-> It's moved slightly to accomodate the updated Obsidian mobile layout.
+> [!fix] 设置面板（移动端）
+> 位置已微调，以适配新版 Obsidian 移动端布局。
 
-# Version 1.1.0
+# 版本 1.1.0
 
-> [!new] In-App Changelogs  
-> Learn about plugin changes and new features straight from the horse's mouth.
+> [!new] 插件内更新日志
+> 可以直接在插件内查看变更和新功能。
 
-> [!new] Insert Callouts  
-> Goodbye to the days of needing to type callouts by hand, and hello to having more ways to suit your workflow. You now have the option to insert callouts directly from the "Manage Callouts" pane!
+> [!new] 插入 Callout
+> 不再需要手动输入 Callout。现在可以直接从“管理 Callout”面板插入。
 >
-> Thank you, [**@decheine**](https://github.com/decheine)!
+> 感谢 [**@decheine**](https://github.com/decheine)！
 
-> [!new] Color Dropdown  
-> Pick from a nifty dropdown instead of memorizing color values.
+> [!new] 颜色下拉菜单
+> 可以从下拉菜单选择颜色，不必记忆颜色值。
 >
-> Thank you, [**@decheine**](https://github.com/decheine)!
+> 感谢 [**@decheine**](https://github.com/decheine)！
 
-> [!new] Rename Callouts  
-> You can now rename your custom callouts.
+> [!new] 重命名 Callout
+> 现在可以重命名自定义 Callout。
 
-> [!fix] More Robust Callout Detection  
-> The code monkey (developer) learned a couple new tricks, and now Callout Manager can detect Obsidian callouts on all platforms and versions without resorting to fallback lists.
+> [!fix] 更稳健的 Callout 检测
+> Callout Manager Local 现在可以在各平台和版本上检测 Obsidian Callout，不再依赖备用列表。
 
-> [!fix] Integration with Completr  
-> You can now use [Completr](obsidian://show-plugin?id=obsidian-completr) to autocomplete callouts!
+> [!fix] Completr 集成
+> 现在可以使用 [Completr](obsidian://show-plugin?id=obsidian-completr) 自动补全 Callout。
 
-# Version 1.0.1
-The first release available on Obsidian's community plugin browser!
+# 版本 1.0.1
+首次发布到 Obsidian 社区插件市场。
 
-# Version 1.0.0
+# 版本 1.0.0
 
-> [!new] Callout Customization  
-> Change callouts to your heart's content!
+> [!new] Callout 自定义
+> 可以按自己的需要调整 Callout。
 
-> [!new] Automatic Detection  
-> Browse and search through your one and only list of available callouts.
+> [!new] 自动检测
+> 可以在统一列表中浏览和搜索可用的 Callout。

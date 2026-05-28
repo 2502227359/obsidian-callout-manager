@@ -1,4 +1,4 @@
-# Callout Manager Plugin API
+# Callout Manager Local Plugin API
 
 Table of Contents:
 
@@ -20,7 +20,7 @@ Table of Contents:
 You can install Callout Manager's plugin API by adding the package through `npm` or `yarn`.
 
 ```bash
-npm install obsidian-callout-manager
+npm install obsidian-callout-manager-local
 ```
 
 ## Setup
@@ -28,7 +28,7 @@ npm install obsidian-callout-manager
 To use the API, you need to get an API handle. Since we can't guarantee plugin load order, it is recommended you do this under an `onLayoutReady` callback:
 
 ```ts
-import {CalloutManager, getApi} from "obsidian-callout-manager";
+import {CalloutManager, getApi} from "obsidian-callout-manager-local";
 
 class MyPlugin extends Plugin {
 	private calloutManager?: CalloutManager<true>;
@@ -85,7 +85,7 @@ A type representing the ID of a callout.
 The source of a callout.
 
 - `builtin` callouts come from Obsidian.
-- `custom` callouts were added by Callout Manager.
+- `custom` callouts were added by Callout Manager Local.
 - `snippet` callouts were added by a user's CSS snippet.
 - `theme` callouts were added by the user's current theme.
 

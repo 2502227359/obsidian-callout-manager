@@ -68,7 +68,7 @@ export class EditCalloutPane extends UIPane {
 			'calloutmanager-edit-callout-appearance',
 		);
 
-		this.appearanceEditorContainerEl.createEl('h2', { text: 'Appearance' });
+		this.appearanceEditorContainerEl.createEl('h2', { text: '外观' });
 		this.appearanceEditorEl = this.appearanceEditorContainerEl.createDiv();
 
 		this.changeSettings(plugin.getCalloutSettings(id) ?? []);
@@ -138,7 +138,7 @@ export class EditCalloutPane extends UIPane {
 		if (!this.viewOnly && callout.sources.length === 1 && callout.sources[0].type === 'custom') {
 			new ButtonComponent(controlsEl)
 				.setIcon('lucide-trash')
-				.setTooltip('Delete Callout')
+				.setTooltip('删除 Callout')
 				.onClick(() => {
 					this.plugin.removeCustomCallout(callout.id);
 					this.nav.close();

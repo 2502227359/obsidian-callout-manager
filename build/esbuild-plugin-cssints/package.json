@@ -1,7 +1,7 @@
 {
 	"name": "esbuild-plugin-cssints",
 	"private": "true",
-	"author": "eth-p",
+	"author": "Local",
 	"main": "",
 	"license": "MIT",
 	"type": "module",

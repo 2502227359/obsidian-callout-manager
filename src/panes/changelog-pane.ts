@@ -8,7 +8,7 @@ import { getSections } from '../changelog';
  * A pane that shows the plugin changelog.
  */
 export class ChangelogPane extends UIPane {
-	public readonly title = 'Changelog';
+	public readonly title = '更新日志';
 	private readonly plugin: CalloutManagerPlugin;
 	private changelogEl: HTMLElement;
 

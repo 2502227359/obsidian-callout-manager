@@ -20,7 +20,7 @@
     description = "Re-installs the plugin into an Obsidian vault.";
     exec = ''
       VAULT_PATH="''${1?Vault path required}"
-      PLUGIN_PATH="$VAULT_PATH/.obsidian/plugins/callout-manager"
+      PLUGIN_PATH="$VAULT_PATH/.obsidian/plugins/callout-manager-local"
 
       install_file() {
         if ! [[ -e "$2" ]]; then
@@ -47,7 +47,7 @@
     packages = [ pkgs.entr ];
     exec = ''
       VAULT_PATH="''${1?Vault path required}"
-      RELOADER_PATH="''${VAULT_PATH}/.obsidian/plugins/callout-manager-dev-reloader"
+      RELOADER_PATH="''${VAULT_PATH}/.obsidian/plugins/callout-manager-local-dev-reloader"
 
       cleanup() {
         if [[ -n "$WATCHER_PID" ]]; then

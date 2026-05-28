@@ -18,7 +18,7 @@
 		"stripInternal": true,
 		"noEmit": true,
 		"paths": {
-			"obsidian-callout-manager": ["./api"],
+			"obsidian-callout-manager-local": ["./api"],
 			"&callout": ["./api/callout"],
 			"&callout-util": ["./src/callout-util"],
 			"&callout-resolver": ["./src/callout-resolver"],

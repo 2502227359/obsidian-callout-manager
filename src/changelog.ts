@@ -49,7 +49,7 @@ export function getSections(parent: Component): Map<string, ChangelogSection> {
 				el.removeAttribute('data-callout');
 			});
 
-			const version = /^\s*Version ([0-9.]+)\s*$/.exec(headingText)?.[1];
+			const version = /^\s*(?:Version|版本) ([0-9.]+)\s*$/.exec(headingText)?.[1];
 			sections.set(version ?? heading.textContent, {
 				version: version,
 				contentsEl,

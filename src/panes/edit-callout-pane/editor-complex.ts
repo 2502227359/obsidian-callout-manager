@@ -19,8 +19,8 @@ export default class ComplexAppearanceEditor extends AppearanceEditor<ComplexApp
 		const complexJson = JSON.stringify(settings, undefined, '  ');
 		containerEl.createEl('p', {
 			text:
-				"This callout has been configured using the plugin's data.json file. " +
-				'To prevent unintentional changes to the configuration, you need to edit it manually.',
+				'这个 Callout 是通过插件的 data.json 文件配置的。' +
+				'为了避免误改配置，需要手动编辑它。',
 		});
 
 		containerEl.createEl('code', { cls: 'calloutmanager-edit-callout-appearance-json' }, (el) => {
@@ -28,18 +28,18 @@ export default class ComplexAppearanceEditor extends AppearanceEditor<ComplexApp
 		});
 
 		containerEl.createEl('p', {
-			text: 'Alternatively, you can reset the callout by clicking the button below twice.',
+			text: '也可以连续点击下面的按钮两次来重置这个 Callout。',
 		});
 
 		let resetButtonClicked = false;
 		const resetButton = new ButtonComponent(containerEl)
-			.setButtonText('Reset Callout')
+			.setButtonText('重置 Callout')
 			.setClass('calloutmanager-edit-callout-appearance-reset')
 			.setWarning()
 			.onClick(() => {
 				if (!resetButtonClicked) {
 					resetButtonClicked = true;
-					resetButton.setButtonText('Are you sure?');
+					resetButton.setButtonText('确认重置？');
 					return;
 				}
 

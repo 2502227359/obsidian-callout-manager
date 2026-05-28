@@ -10,7 +10,7 @@ import { ChangelogPane } from './changelog-pane';
 import { ManageCalloutsPane } from './manage-callouts-pane';
 
 export class ManagePluginPane extends UIPane {
-	public readonly title = 'Callout Manager Settings';
+	public readonly title = 'Callout Manager Local 设置';
 	private plugin: CalloutManagerPlugin;
 
 	public constructor(plugin: CalloutManagerPlugin) {
@@ -26,17 +26,35 @@ export class ManagePluginPane extends UIPane {
 		// Navigation.
 		// -----------------------------------------------------------------------------------------------------
 		new Setting(containerEl)
-			.setName('Manage Callouts')
-			.setDesc('Create or edit Markdown callouts.')
+			.setName('管理 Callout')
+			.setDesc('创建或编辑 Markdown Callout。')
 			.addButton((btn) => {
-				btn.setButtonText('Manage Callouts');
+				btn.setButtonText('管理 Callout');
 				btn.onClick(() => this.nav.open(new ManageCalloutsPane(plugin)));
+			});
+
+		new Setting(containerEl)
+			.setName('默认 Callout')
+			.setDesc('“插入默认 Callout” 命令会使用这里填写的类型，默认快捷键是 Ctrl/Cmd + Shift + C。')
+			.addText((cmp) => {
+				cmp.setValue(plugin.settings.defaultCallout).setPlaceholder('danger');
+				cmp.inputEl.setAttribute('pattern', '^[a-z\\-]{1,}$');
+				cmp.inputEl.setAttribute('required', 'required');
+				cmp.onChange((value) => {
+					const calloutId = value.trim().toLowerCase();
+					const valid = /^[a-z-]+$/.test(calloutId);
+					cmp.inputEl.classList.toggle('mod-error', !valid);
+					if (!valid) return;
+
+					plugin.settings.defaultCallout = calloutId;
+					plugin.saveSettings();
+				});
 			});
 
 		// -----------------------------------------------------------------------------------------------------
 		// Section: Callout Detection
 		// -----------------------------------------------------------------------------------------------------
-		new Setting(containerEl).setHeading().setName('Callout Detection');
+		new Setting(containerEl).setHeading().setName('Callout 检测');
 
 		new Setting(containerEl)
 			.setName('Obsidian')
@@ -47,7 +65,7 @@ export class ManagePluginPane extends UIPane {
 					const method = plugin.cssWatcher.describeObsidianFetchMethod();
 
 					container.createDiv({
-						text: `Find built-in Obsidian callouts${method === '' ? '' : ' '}${method}.`,
+						text: `查找 Obsidian 内置 Callout${method === '' ? '' : ' '}${method}。`,
 					});
 
 					return desc;
@@ -62,8 +80,8 @@ export class ManagePluginPane extends UIPane {
 			});
 
 		new Setting(containerEl)
-			.setName('Theme')
-			.setDesc('Find theme-provided callouts.')
+			.setName('主题')
+			.setDesc('查找主题提供的 Callout。')
 			.addToggle((setting) => {
 				setting.setValue(plugin.settings.calloutDetection.theme).onChange((v) => {
 					plugin.settings.calloutDetection.theme = v;
@@ -73,8 +91,8 @@ export class ManagePluginPane extends UIPane {
 			});
 
 		new Setting(containerEl)
-			.setName('Snippet')
-			.setDesc('Find callouts in custom CSS snippets.')
+			.setName('CSS 片段')
+			.setDesc('查找自定义 CSS 片段中的 Callout。')
 			.addToggle((setting) => {
 				setting.setValue(plugin.settings.calloutDetection.snippet).onChange((v) => {
 					plugin.settings.calloutDetection.snippet = v;
@@ -88,11 +106,11 @@ export class ManagePluginPane extends UIPane {
 		// -----------------------------------------------------------------------------------------------------
 		new Setting(containerEl)
 			.setHeading()
-			.setName("What's New")
-			.setDesc(`Version ${this.plugin.manifest.version}`)
+			.setName('更新内容')
+			.setDesc(`版本 ${this.plugin.manifest.version}`)
 			.addExtraButton((btn) => {
 				btn.setIcon('lucide-more-horizontal')
-					.setTooltip('More Changelogs')
+					.setTooltip('更多更新日志')
 					.onClick(() => this.nav.open(new ChangelogPane(plugin)));
 			});
 
@@ -110,21 +128,21 @@ export class ManagePluginPane extends UIPane {
 		// -----------------------------------------------------------------------------------------------------
 		// Section: Export
 		// -----------------------------------------------------------------------------------------------------
-		new Setting(containerEl).setHeading().setName('Export');
+		new Setting(containerEl).setHeading().setName('导出');
 
 		new Setting(containerEl)
-			.setName('Callout Styles')
-			.setDesc('Export your custom callouts and changes as CSS.')
+			.setName('Callout 样式')
+			.setDesc('把自定义 Callout 和样式修改导出为 CSS。')
 			.addButton((btn) => {
-				btn.setButtonText('Copy');
+				btn.setButtonText('复制');
 				btn.onClick(async () => {
 					btn.setDisabled(true);
 
 					try {
-						await navigator.clipboard.writeText('/* Exported Styles from Obsidian Callout Manager */\n' + this.plugin.cssApplier.css)
-						btn.setButtonText("Copied!");
+						await navigator.clipboard.writeText('/* Exported Styles from Callout Manager Local */\n' + this.plugin.cssApplier.css)
+						btn.setButtonText("已复制");
 					} catch (ex) {
-						btn.setButtonText("Error");
+						btn.setButtonText("复制失败");
 					}
 				});
 			});
@@ -132,30 +150,30 @@ export class ManagePluginPane extends UIPane {
 		// -----------------------------------------------------------------------------------------------------
 		// Section: Reset
 		// -----------------------------------------------------------------------------------------------------
-		new Setting(containerEl).setHeading().setName('Reset');
+		new Setting(containerEl).setHeading().setName('重置');
 
 		new Setting(containerEl)
-			.setName('Reset Callout Settings')
-			.setDesc('Reset all the changes you made to callouts.')
+			.setName('重置 Callout 设置')
+			.setDesc('清空所有 Callout 样式修改。')
 			.addButton(
 				withConfirm((btn) => {
-					btn.setButtonText('Reset').onClick(() => {
+					btn.setButtonText('重置').onClick(() => {
 						this.plugin.settings.callouts.settings = {};
 						this.plugin.saveSettings();
 
 						// Regenerate the callout styles.
 						this.plugin.applyStyles();
-						btn.setButtonText('Reset').setDisabled(true);
+						btn.setButtonText('重置').setDisabled(true);
 					});
 				}),
 			);
 
 		new Setting(containerEl)
-			.setName('Reset Custom Callouts')
-			.setDesc('Removes all the custom callouts you created.')
+			.setName('重置自定义 Callout')
+			.setDesc('删除你创建的所有自定义 Callout。')
 			.addButton(
 				withConfirm((btn) => {
-					btn.setButtonText('Reset').onClick(() => {
+					btn.setButtonText('重置').onClick(() => {
 						// Remove the stylings for the custom callouts.
 						const { settings } = this.plugin;
 						for (const custom of settings.callouts.custom) {
@@ -172,7 +190,7 @@ export class ManagePluginPane extends UIPane {
 
 						// Regenerate the cache.
 						this.plugin.refreshCalloutSources();
-						btn.setButtonText('Reset').setDisabled(true);
+						btn.setButtonText('重置').setDisabled(true);
 					});
 				}),
 			);
@@ -189,7 +207,7 @@ function withConfirm(callback: (btn: ButtonComponent) => any): (btn: ButtonCompo
 		btn.setWarning().onClick(() => {
 			if (!resetButtonClicked) {
 				resetButtonClicked = true;
-				btn.setButtonText('Confirm');
+				btn.setButtonText('确认');
 				return;
 			}
 

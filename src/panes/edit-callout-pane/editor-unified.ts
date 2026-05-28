@@ -33,14 +33,14 @@ export default class UnifiedAppearanceEditor extends AppearanceEditor<UnifiedApp
 		const otherColorScheme = colorScheme === 'dark' ? 'light' : 'dark';
 
 		new CalloutColorSetting(containerEl, callout)
-			.setName('Color')
-			.setDesc('Change the color of the callout.')
+			.setName('颜色')
+			.setDesc('修改这个 Callout 的颜色。')
 			.setColorString(color)
 			.onChange((color) => setAppearance({ type: 'unified', otherChanges, color }));
 
 		new Setting(containerEl)
-			.setName(`Color Scheme`)
-			.setDesc(`Change the color of the callout for the ${otherColorScheme} color scheme.`)
+			.setName(`配色方案`)
+			.setDesc(`为${otherColorScheme === 'dark' ? '深色' : '浅色'}模式单独设置颜色。`)
 			.addButton((btn) =>
 				btn
 					.setClass('clickable-icon')
@@ -57,8 +57,8 @@ export default class UnifiedAppearanceEditor extends AppearanceEditor<UnifiedApp
 			);
 
 		new CalloutIconSetting(containerEl, callout, plugin, () => this.nav)
-			.setName('Icon')
-			.setDesc('Change the callout icon.')
+			.setName('图标')
+			.setDesc('修改这个 Callout 的图标。')
 			.setIcon(otherChanges.icon)
 			.onChange((icon) => setAppearance({ type: 'unified', color, otherChanges: { ...otherChanges, icon } }));
 	}

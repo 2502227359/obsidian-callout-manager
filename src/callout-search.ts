@@ -116,6 +116,7 @@ function sourceGetter(callout: Callout): string[] {
 			case 'custom':
 				sources.push('custom');
 				sources.push('user');
+				sources.push('callout-manager-local');
 				sources.push('callout-manager');
 				break;
 

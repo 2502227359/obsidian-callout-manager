@@ -1,4 +1,4 @@
-import { ButtonComponent, MarkdownView, TextComponent, getIcon } from 'obsidian';
+import { ButtonComponent, TextComponent, getIcon } from 'obsidian';
 
 import { Callout } from '&callout';
 import { getColorFromCallout, getTitleFromCallout } from '&callout-util';
@@ -17,7 +17,7 @@ import { closeSettings } from 'obsidian-extra/unsafe';
  * The user interface pane for changing Callout Manager settings.
  */
 export class ManageCalloutsPane extends UIPane {
-	public readonly title = { title: 'Callouts', subtitle: 'Manage' };
+	public readonly title = { title: 'Callout', subtitle: '管理' };
 	private readonly viewOnly: boolean;
 	private plugin: CalloutManagerPlugin;
 
@@ -102,16 +102,7 @@ export class ManageCalloutsPane extends UIPane {
 
 		// Insert the selected callout.
 		else if (action === 'insert') {
-			const view = this.plugin.app.workspace.getActiveViewOfType(MarkdownView);
-
-			// Make sure the user is editing a Markdown file.
-			if (view) {
-				const cursor = view.editor.getCursor();
-				view.editor.replaceRange(
-					`> [!${id}]\n> Contents`,
-					cursor
-				)
-				view.editor.setCursor(cursor.line + 1, 10)
+			if (this.plugin.insertCalloutTemplate(id)) {
 				closeSettings(this.plugin.app)
 			}
 		}
@@ -146,7 +137,7 @@ export class ManageCalloutsPane extends UIPane {
 
 		const filter = new TextComponent(controlsEl)
 			.setValue(this.searchQuery)
-			.setPlaceholder('Filter callouts...')
+			.setPlaceholder('筛选 Callout...')
 			.onChange(this.search.bind(this));
 
 		this.setSearchError = (message) => {
@@ -161,7 +152,7 @@ export class ManageCalloutsPane extends UIPane {
 		if (!this.viewOnly) {
 			new ButtonComponent(controlsEl)
 				.setIcon('lucide-plus')
-				.setTooltip('New Callout')
+				.setTooltip('新建 Callout')
 				.onClick(() => this.nav.open(new CreateCalloutPane(this.plugin)))
 				.then(({ buttonEl }) => buttonEl.classList.add('clickable-icon'));
 		}
@@ -180,11 +171,11 @@ export class ManageCalloutsPane extends UIPane {
 
 function createPreviewFactory(viewOnly: boolean): (callout: Callout) => HTMLElement {
 	const editButtonContent =
-		(viewOnly ? getIcon('lucide-view') : getIcon('lucide-edit')) ?? document.createTextNode('Edit Callout');
+		(viewOnly ? getIcon('lucide-view') : getIcon('lucide-edit')) ?? document.createTextNode('编辑 Callout');
 
 	const insertButtonContent =
 		(viewOnly ? getIcon('lucide-view') : getIcon('lucide-forward')) ??
-		document.createTextNode('Insert Callout');
+		document.createTextNode('插入 Callout');
 
 	return (callout) => {
 		const frag = document.createDocumentFragment();
@@ -230,35 +221,35 @@ function createEmptySearchResultDiv(): { searchErrorDiv: HTMLElement; searchErro
 	const contentEl = searchErrorDiv.createDiv({ cls: 'calloutmanager-search-error' });
 
 	// Title.
-	contentEl.createEl('h2', { text: 'No callouts found.' });
+	contentEl.createEl('h2', { text: '没有找到 Callout。' });
 
 	// Error message.
 	contentEl.createEl('p', undefined, (el) => {
-		el.createSpan({ text: 'Your search query ' });
+		el.createSpan({ text: '搜索条件 ' });
 		searchErrorQuery = el.createEl('code', { text: '' });
-		el.createSpan({ text: ' did not return any results.' });
+		el.createSpan({ text: ' 没有返回任何结果。' });
 	});
 
 	// Suggestions.
 	contentEl.createDiv({ cls: 'calloutmanager-search-error-suggestions' }, (el) => {
-		el.createDiv({ text: 'Try searching:' });
+		el.createDiv({ text: '可以试试这些搜索方式：' });
 		el.createEl('ul', undefined, (el) => {
-			el.createEl('li', { text: 'By name: ' }, (el) => {
+			el.createEl('li', { text: '按名称：' }, (el) => {
 				el.createEl('code', { text: 'warning' });
 			});
-			el.createEl('li', { text: 'By icon: ' }, (el) => {
+			el.createEl('li', { text: '按图标：' }, (el) => {
 				el.createEl('code', { text: 'icon:check' });
 			});
-			el.createEl('li', { text: 'Built-in callouts: ' }, (el) => {
+			el.createEl('li', { text: 'Obsidian 内置：' }, (el) => {
 				el.createEl('code', { text: 'from:obsidian' });
 			});
-			el.createEl('li', { text: 'Theme callouts: ' }, (el) => {
+			el.createEl('li', { text: '主题提供：' }, (el) => {
 				el.createEl('code', { text: 'from:theme' });
 			});
-			el.createEl('li', { text: 'Snippet callouts: ' }, (el) => {
+			el.createEl('li', { text: 'CSS 片段提供：' }, (el) => {
 				el.createEl('code', { text: 'from:my snippet' });
 			});
-			el.createEl('li', { text: 'Custom callouts: ' }, (el) => {
+			el.createEl('li', { text: '自定义：' }, (el) => {
 				el.createEl('code', { text: 'from:custom' });
 			});
 		});

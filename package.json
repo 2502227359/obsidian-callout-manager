@@ -1,7 +1,7 @@
 {
-	"name": "obsidian-callout-manager",
+	"name": "obsidian-callout-manager-local",
 	"version": "1.1.1",
-	"description": "An Obsidian.md plugin that makes creating and configuring callouts easy.",
+	"description": "Local Obsidian callout manager build.",
 	"type": "module",
 	"exports": {
 		"import": "./dist/api-esm.mjs",
@@ -15,14 +15,14 @@
 	},
 	"keywords": [],
 	"author": {
-		"name": "eth-p",
-		"url": "https://github.com/eth-p"
+		"name": "Local"
 	},
 	"license": "MIT",
 	"obsidianPlugin": {
-		"name": "Callout Manager",
+		"id": "callout-manager-local",
+		"name": "Callout Manager Local",
 		"minAppVersion": "1.0.0",
-		"description": "Easily create and customize callouts.",
+		"description": "本地修改版：创建、管理并快速插入 Callout。",
 		"isDesktopOnly": false
 	},
 	"dependencies": {

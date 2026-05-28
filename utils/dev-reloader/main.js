@@ -197,8 +197,8 @@ module.exports.default = class ReloaderPlugin extends Plugin {
 	async onload() {
 		this.plugins = new Map();
 		this.app.workspace.onLayoutReady(async () => {
-			await this.watchPlugin('callout-manager-dev-reloader');
-			await this.watchPlugin('callout-manager');
+			await this.watchPlugin('callout-manager-local-dev-reloader');
+			await this.watchPlugin('callout-manager-local');
 		});
 	}
 

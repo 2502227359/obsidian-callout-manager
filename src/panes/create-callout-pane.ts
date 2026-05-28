@@ -9,7 +9,7 @@ import { ValiditySet } from '../util/validity-set';
 import { EditCalloutPane } from './edit-callout-pane';
 
 export class CreateCalloutPane extends UIPane {
-	public readonly title = { title: 'Callouts', subtitle: 'New Callout' };
+	public readonly title = { title: 'Callout', subtitle: '新建 Callout' };
 	private readonly plugin: CalloutManagerPlugin;
 
 	private btnCreate: HTMLButtonElement;
@@ -23,7 +23,7 @@ export class CreateCalloutPane extends UIPane {
 		this.validity = new ValiditySet(ValiditySet.AllValid);
 
 		const btnCreate = (this.btnCreate = document.createElement('button'));
-		btnCreate.textContent = 'Create';
+		btnCreate.textContent = '创建';
 		btnCreate.addEventListener('click', (evt) => {
 			if (!this.validity.valid) {
 				return;
@@ -36,8 +36,8 @@ export class CreateCalloutPane extends UIPane {
 
 		this.fieldId = new Setting(document.createElement('div'))
 			.setHeading()
-			.setName('Callout Name')
-			.setDesc('This is how you will refer to your callout in Markdown.')
+			.setName('Callout 名称')
+			.setDesc('这个名称会用于 Markdown 中的 Callout 类型。')
 			.addText((cmp) => {
 				this.fieldIdComponent = cmp;
 				cmp.setPlaceholder('my-awesome-callout');

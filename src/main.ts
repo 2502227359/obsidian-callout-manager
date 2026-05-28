@@ -1,4 +1,4 @@
-import { Plugin } from 'obsidian';
+import { Editor, EditorPosition, MarkdownView, Notice, Plugin } from 'obsidian';
 import { CustomStyleSheet, createCustomStyleSheet } from 'obsidian-extra';
 
 import { UISettingTab } from '&ui/paned-setting-tab';
@@ -100,9 +100,18 @@ export default class CalloutManagerPlugin extends Plugin {
 		// Register modal commands.
 		this.addCommand({
 			id: 'manage-callouts',
-			name: 'Edit callouts',
+			name: '管理 Callout',
 			callback: () => {
 				this.settingTab.openWithPane(new ManageCalloutsPane(this));
+			},
+		});
+
+		this.addCommand({
+			id: 'insert-default-callout',
+			name: '插入默认 Callout',
+			hotkeys: [{ modifiers: ['Mod', 'Shift'], key: 'C' }],
+			callback: () => {
+				this.insertCalloutTemplate(this.settings.defaultCallout);
 			},
 		});
 
@@ -111,9 +120,43 @@ export default class CalloutManagerPlugin extends Plugin {
 		this.apiReadySignal();
 
 		// Add a ribbon Icon
-		this.addRibbonIcon('lucide-gallery-vertical', 'Insert Callout', () => {
+		this.addRibbonIcon('lucide-gallery-vertical', '插入 Callout', () => {
 			this.settingTab.openWithPane(new ManageCalloutsPane(this));
 		});
+	}
+
+	public insertCalloutTemplate(id: CalloutID): boolean {
+		const view = this.app.workspace.getActiveViewOfType(MarkdownView);
+
+		if (view == null) {
+			new Notice('请先打开一个 Markdown 文件。');
+			return false;
+		}
+
+		const editor = view.editor;
+		const cursor = editor.getCursor();
+		const calloutHeader = `> [!${id}] `;
+		const prefix = this.getCalloutTemplatePrefix(editor, cursor);
+		const lineOffset = prefix.split('\n').length - 1;
+
+		editor.replaceRange(`${prefix}${calloutHeader}`, cursor);
+		editor.setCursor(
+			cursor.line + lineOffset,
+			lineOffset > 0 ? calloutHeader.length : cursor.ch + calloutHeader.length,
+		);
+
+		return true;
+	}
+
+	private getCalloutTemplatePrefix(editor: Editor, cursor: EditorPosition): string {
+		const currentLine = editor.getLine(cursor.line);
+
+		if (currentLine.trim().length === 0) {
+			if (cursor.line === 0) return '';
+			return editor.getLine(cursor.line - 1).trim().length === 0 ? '' : '\n';
+		}
+
+		return '\n\n';
 	}
 
 	async loadSettings() {

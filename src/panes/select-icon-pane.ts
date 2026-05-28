@@ -164,14 +164,8 @@ export class SelectIconPane extends UIPane<void> {
 		// Add a message if there are too many icons to display.
 		const { previewLimitOverage } = this;
 		if (previewLimitOverage > 0) {
-			const { pluralIs, pluralIcon } =
-				previewLimitOverage === 1
-					? { pluralIs: 'is', pluralIcon: 'icon' }
-					: { pluralIs: 'are', pluralIcon: 'icons' };
 			containerEl.createEl('p', {
-				text:
-					`There ${pluralIs} ${previewLimitOverage} more ${pluralIcon} to show. ` +
-					`Refine your search to see more.`,
+				text: `还有 ${previewLimitOverage} 个图标未显示。缩小搜索范围可以看到更多结果。`,
 			});
 		}
 	}
@@ -182,7 +176,7 @@ export class SelectIconPane extends UIPane<void> {
 
 		new TextComponent(controlsEl)
 			.setValue(this.searchQuery)
-			.setPlaceholder('Search icons...')
+			.setPlaceholder('搜索图标...')
 			.onChange(this.search.bind(this));
 	}
 

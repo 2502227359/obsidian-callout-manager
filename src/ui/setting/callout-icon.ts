@@ -35,7 +35,7 @@ export class CalloutIconSetting extends Setting {
 			this.buttonComponent = btn;
 			btn.onClick(() => {
 				getNav().open(
-					new SelectIconPane(plugin, 'Select Icon', { onChoose: (icon) => this.onChanged?.(icon) }),
+					new SelectIconPane(plugin, '选择图标', { onChoose: (icon) => this.onChanged?.(icon) }),
 				);
 			});
 		});
@@ -65,10 +65,10 @@ export class CalloutIconSetting extends Setting {
 		if (iconExists) {
 			this.buttonComponent.setIcon(iconName);
 		} else {
-			this.buttonComponent.setButtonText(iconExists ? '' : `(missing icon: ${iconName})`);
+			this.buttonComponent.setButtonText(iconExists ? '' : `（缺少图标：${iconName}）`);
 		}
 
-		this.resetComponent.setDisabled(isDefault).setTooltip(isDefault ? '' : 'Reset Icon');
+		this.resetComponent.setDisabled(isDefault).setTooltip(isDefault ? '' : '重置图标');
 		return this;
 	}
 

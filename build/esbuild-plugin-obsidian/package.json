@@ -1,7 +1,7 @@
 {
 	"name": "esbuild-plugin-obsidian",
 	"private": "true",
-	"author": "eth-p",
+	"author": "Local",
 	"license": "MIT",
 	"type": "module",
 	"exports": {
