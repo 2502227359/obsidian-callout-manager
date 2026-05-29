@@ -137,9 +137,10 @@ export default class CalloutManagerPlugin extends Plugin {
 		const cursor = editor.getCursor();
 		const calloutHeader = `> [!${id}] `;
 		const prefix = this.getCalloutTemplatePrefix(editor, cursor);
+		const suffix = '\n\n';
 		const lineOffset = prefix.split('\n').length - 1;
 
-		editor.replaceRange(`${prefix}${calloutHeader}`, cursor);
+		editor.replaceRange(`${prefix}${calloutHeader}${suffix}`, cursor);
 		editor.setCursor(
 			cursor.line + lineOffset,
 			lineOffset > 0 ? calloutHeader.length : cursor.ch + calloutHeader.length,
